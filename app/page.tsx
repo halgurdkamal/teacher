@@ -2,20 +2,32 @@ import { TeacherCard } from '@/components/TeacherCard'
 import { supabase } from '@/lib/supabase'
 
 export default async function Home() {
+  // Debug: Log environment check (server-side only)
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  console.log('Server Supabase URL configured:', !!supabaseUrl, supabaseUrl?.includes('placeholder') ? '(Placeholder detected)' : '(Valid format)')
+
   // Fetch top-rated teachers
-  const { data: topTeachers } = await supabase
+  const { data: topTeachers, error: topError } = await supabase
     .from('teachers')
     .select('*, school:schools(name)')
     .order('avg_rating', { ascending: false })
     .order('total_reviews', { ascending: false })
     .limit(6)
 
+  if (topError) {
+    console.error('Error fetching top teachers:', topError)
+  }
+
   // Fetch recently added teachers
-  const { data: recentTeachers } = await supabase
+  const { data: recentTeachers, error: recentError } = await supabase
     .from('teachers')
     .select('*, school:schools(name)')
     .order('created_at', { ascending: false })
     .limit(6)
+
+  if (recentError) {
+    console.error('Error fetching recent teachers:', recentError)
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
