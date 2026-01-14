@@ -23,7 +23,8 @@ export default async function AddTeacherPage() {
                     </a>
 
                     <form onSubmit={signOut}>
-                        <button
+                        <button 
+                        
                             type="submit"
                             className="text-sm text-red-600 dark:text-red-400 hover:underline"
                         >
