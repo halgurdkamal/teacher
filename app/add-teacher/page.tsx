@@ -2,6 +2,8 @@ import { requireAuth, signOut } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import AddTeacherForm from './AddTeacherForm'
 
+export const runtime = 'edge'
+
 export default async function AddTeacherPage() {
     // Check authentication
     const session = await requireAuth()
@@ -23,8 +25,8 @@ export default async function AddTeacherPage() {
                     </a>
 
                     <form onSubmit={signOut}>
-                        <button 
-                         
+                        <button
+
                             type="submit"
                             className="text-sm text-red-600 dark:text-red-400 hover:underline"
                         >

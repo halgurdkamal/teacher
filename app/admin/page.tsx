@@ -3,6 +3,8 @@ import { redirect } from 'next/navigation'
 import AdminDashboard from './AdminDashboard'
 import { getAllReviews, getAllTeachers, getReportedReviews } from './actions'
 
+export const runtime = 'edge'
+
 export default async function AdminPage() {
     // Check authentication
     const session = await requireAuth()
